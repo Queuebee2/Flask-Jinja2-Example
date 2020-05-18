@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% block head %}
+    {{ super() }}
+    <meta name="author" content="Milain Lambers">
+    <meta name="GitHub" content="Queuebee2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block style %}
+        <style>
+            p h1  {
+                font-family: "Comic Sans MS", cursive, sans-serif;
+            }
+
+            body {
+                background-image: url("{{ url_for('static', filename = 'img/Queuebee2GitHubCat.PNG') }}");
+
+
+                background-repeat: repeat;
+            }
+
+            span {
+                display: inline-block;
+                position: absolute;
+            }
+
+            #image {
+                height: 400px;
+                width: 400px;
+                position: relative;
+            }
+
+            #image {
+                position: absolute;
+                {#hope this puts it below menu bar xd#}
+                left: 150;
+                top: 150;
+            }
+
+            #text {
+                z-index: 100;
+                position: absolute;
+                color: #ff0000;
+                font-size: 24px;
+                font-weight: bold;
+                left: 150px;
+                top: 350px;
+            }
+
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {% endblock style %}
+{% endblock head %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Contact</h1>
+        <p>
+            made by milain lambers
+        </p>
+    </div>
+
+        <div id="image">
+            <span id="random">
+                <a href="https://github.com/Queuebee2/">
+                    <img src="{{ url_for('static', filename = 'img/Queuebee2GitHubCat.PNG') }}">
+                </a>
+                <p id="text">
+               Click me <br> if you can
+            </p>
+            </span>
+
+        </div>
+
+    <script>
+        function moveDiv() {
+            var $span = $("#random");
+
+            $span.fadeOut(270, function () {
+                var maxLeft = $(window).width() - $span.width();
+                var maxTop = $(window).height() - $span.height();
+                var leftPos = Math.floor(Math.random() * (maxLeft + 6));
+                var topPos = Math.floor(Math.random() * (maxTop + 6));
+
+                $span.css({left: leftPos, top: topPos}).fadeIn(270);
+            });
+        }
+
+        moveDiv();
+        setInterval(moveDiv, 270);
+    </script>
+
+    
+{% endblock %}

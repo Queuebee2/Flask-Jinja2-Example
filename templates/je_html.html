@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+
+{% block style %}
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+{% endblock style %}
+
+{# begin met hoe je je block noemt (sla dit over als je gwn hardcoded <body>  gebruikt) #}
+{% block content %}
+
+
+    {# berichtje als er nog geen resultaten zijn (zie volgende if) #}
+    {% if not results %}
+        <p>press the button to do something</p>
+    {% endif %}
+
+    {# een knopje    #}
+    <form method="POST">
+        <input type="submit" id="yourbuttonid" name="your_button_name" value="your_button_value (do something!)">
+    </form>
+
+    {#  check of het results object meegegeven is en 'bestaat' (dus niet None of False is)#}
+    {% if results %}
+        {#  dit kan nog veel fancy-er, door bijv een results.html te maken en die met 'include' via jinja te laden #}
+        <h3> here are your results... </h3>
+
+        {#  doe whatever je wil met hoe je je tabel aanmaakt of hoe je je data wil laten zien#}
+        <div style="overflow-x:auto;">
+            <table style="width:100%">
+                {# nu kun je over je object itereren zoals je dat ook doet met een dictionary #}
+                {% for title, attributes in results.items() %}
+                    <tr>
+                        <th>{{ title }}</th>
+                    </tr>
+                    {% for attr, value in attributes.items() %}
+                        <tr>
+                            <td>{{ attr }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                    {% endfor %}
+                    {#   een alternatief voor deze inner loop zou  het volgende kunnen zijn
+                       maar dit is meer afhankelijk van hoe je de attributen noemt
+                     <tr>
+                     <td> attr 1</td>
+                     <td> {{ attributes.attr1 }} </td>
+                         </tr><tr>
+                     <td> attr 2</td>
+                     <td> {{ attributes.attr2 }} </td>
+                         </tr><tr>
+                     <td> attr 3</td>
+                     <td>{{  attributes.attr3 }} </td>
+                     </tr>
+                     #}
+
+                {% endfor %}
+            </table>
+        </div>
+
+        {#berichtje als er nog geen resultaten zijn    #}
+    {% else %}
+        <p>have you tried pressing the button? </p>
+    {% endif %}
+
+    {# eind van het block content (dit over-write het block dat dezelfde naam heeft (content) in
+ whatever deze  pagina extends ( zie top of page) #}
+{% endblock content %}
